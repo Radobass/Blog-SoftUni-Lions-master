@@ -1,0 +1,71 @@
+﻿@model IEnumerable<MVCBog.Models.Ads>
+
+@{
+    ViewBag.Title = "Търсене в заглавията на обявите";
+}
+
+<h2>Търсене в заглавията на обявите</h2>
+
+<p>
+    @*@Html.ActionLink("Създай нова обява", "Create")*@
+</p>
+
+<p>
+
+
+    @using (Html.BeginForm())
+    {
+    <p>
+        Търсачка: @Html.TextBox("SearchString") <br />
+        <input type="submit" value="Търси" class="btn btn-primary" />
+    </p>
+    }
+    </p>
+@foreach (var item in Model)
+{
+    <table cellpadding="0" cellspacing="0" class="table">
+
+        <tr>
+            <td align="center" rowspan="6" width="100">
+                @if (item.UplImage != null)
+                {
+                    var base64 = Convert.ToBase64String(item.UplImage);
+                    var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                    <img src="@imgsrc" style="max-width: 300px; max-height:300px" />
+
+                }
+                else
+                {
+                    <img src="http://vignette1.wikia.nocookie.net/superfriends/images/a/a5/No_Photo_Available.jpg/revision/latest?cb=20090329133959" style="max-width: 300px; max-height:300px" />
+                }
+               
+            </td>
+            @*<td align="center" width="200">Заглавие</td>*@
+            <th>Заглавие</th>
+            <td align="center" width="200">@Html.DisplayFor(modelItem => item.Title)</td>
+        </tr>
+
+        <tr>
+            @*<td align="CENTER">Row 2</td>*@
+            <th>Текст на обявата</th>
+            <td align="CENTER">@MVCBog.Classes.Utils.CutText(item.Body)</td>
+        </tr>
+        <tr>
+            @*<td align="CENTER">Row 2</td>*@
+            <th>Цена</th>
+            <td align="CENTER">@Html.DisplayFor(modelItem => item.Price)</td>
+        </tr>
+        <tr>
+            @*<td align="CENTER">Row 2</td>*@
+            <th>За връзка</th>
+            <td align="CENTER">@Html.DisplayFor(modelItem => item.Contacts)</td>
+        </tr>
+
+        <tr>
+            @*<td align="center">Row 3</td>*@
+            <th>Дата</th>
+            <td align="center">@Html.DisplayFor(modelItem => item.Date)</td>
+
+        </tr>
+    </table>
+                    }
